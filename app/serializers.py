@@ -4,7 +4,7 @@ from .models import User, Quiz, Question, Result
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username', 'is_admin']  # 🔒 SAFE
 
 class QuizSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,4 +19,21 @@ class QuestionSerializer(serializers.ModelSerializer):
 class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Result
+        fields = '__all__'
+
+# =======================
+# USER QUESTION SERIALIZER (NO ANSWER)
+# =======================
+class QuestionUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        exclude = ['correct_answer']
+
+
+# =======================
+# ADMIN QUESTION SERIALIZER (FULL ACCESS)
+# =======================
+class QuestionAdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
         fields = '__all__'
